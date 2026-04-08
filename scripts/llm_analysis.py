@@ -1,8 +1,15 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parent
+if not (PROJECT_ROOT / "requirements.txt").exists():
+    PROJECT_ROOT = PROJECT_ROOT.parent
+DATA_DIR = PROJECT_ROOT / "data"
+ASSETS_DIR = PROJECT_ROOT / "assets"
 
 # Load prediction results
-df = pd.read_csv(r"C:\Users\user\Downloads\se factory Project\prediction_results.csv")
+df = pd.read_csv(DATA_DIR / "prediction_results.csv")
 
 # Average salary by experience level
 avg_salary_by_exp = df.groupby("experience_level")["predicted_salary_in_usd"].mean().sort_index()
@@ -19,10 +26,12 @@ plt.xticks(rotation=0)
 plt.tight_layout()
 
 # Save chart
-plt.savefig("salary_by_experience.png")
+ASSETS_DIR.mkdir(exist_ok=True)
+chart_path = ASSETS_DIR / "salary_by_experience.png"
+plt.savefig(chart_path)
 plt.show()
 
-print("Chart saved as salary_by_experience.png")
+print(f"Chart saved as {chart_path}")
 
 # Summary tables
 avg_salary_by_title = df.groupby("job_title")["predicted_salary_in_usd"].mean().sort_values(ascending=False)
@@ -46,10 +55,11 @@ Summary of prediction results:
 """
 
 print(summary_text)
-with open("summary_text.txt", "w", encoding="utf-8") as f:
+summary_path = DATA_DIR / "summary_text.txt"
+with open(summary_path, "w", encoding="utf-8") as f:
     f.write(summary_text)
 
-print("Summary saved as summary_text.txt")
+print(f"Summary saved as {summary_path}")
 
 import ollama
 
@@ -84,7 +94,8 @@ analysis_text = response["message"]["content"]
 print("\nLLM Analysis:\n")
 print(analysis_text)
 
-with open("llm_analysis.txt", "w", encoding="utf-8") as f:
+analysis_path = DATA_DIR / "llm_analysis.txt"
+with open(analysis_path, "w", encoding="utf-8") as f:
     f.write(analysis_text)
 
-print("LLM analysis saved as llm_analysis.txt")
+print(f"LLM analysis saved as {analysis_path}")

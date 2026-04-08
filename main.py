@@ -1,12 +1,15 @@
 from fastapi import FastAPI, Query
 import pandas as pd
 import joblib
+from pathlib import Path
 
 # Create FastAPI app
 app = FastAPI(title="Salary Prediction API")
 
 # Load trained model
-model = joblib.load("salary_prediction_model.pkl")
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = BASE_DIR / "models" / "salary_prediction_model.pkl"
+model = joblib.load(MODEL_PATH)
 # Allowed values for validation
 ALLOWED_EXPERIENCE_LEVELS = ["EN", "MI", "SE", "EX"]
 ALLOWED_EMPLOYMENT_TYPES = ["FT", "PT", "CT", "FL"]

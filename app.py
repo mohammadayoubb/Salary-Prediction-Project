@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import requests
+from pathlib import Path
 from supabase import create_client
 
 # Supabase credentials
@@ -12,6 +13,8 @@ supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # FastAPI endpoint
 FASTAPI_URL = "https://salary-prediction-project-hru9.onrender.com/predict"
+BASE_DIR = Path(__file__).resolve().parent
+DATA_DIR = BASE_DIR / "data"
 
 st.set_page_config(page_title="Salary Prediction Dashboard", layout="wide")
 
@@ -19,7 +22,7 @@ st.title("Salary Prediction Dashboard")
 st.write("This dashboard displays salary predictions and AI-generated analysis based on job-related input scenarios.")
 
 
-job_titles_df = pd.read_csv("cleaned_ds_salaries.csv")
+job_titles_df = pd.read_csv(DATA_DIR / "cleaned_ds_salaries.csv")
 job_title_options = sorted(job_titles_df["job_title"].dropna().unique().tolist())
 
 # =========================

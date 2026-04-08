@@ -1,8 +1,13 @@
 import requests
 import pandas as pd
+from pathlib import Path
 from itertools import product
 
 url = "http://127.0.0.1:8000/predict"
+PROJECT_ROOT = Path(__file__).resolve().parent
+if not (PROJECT_ROOT / "requirements.txt").exists():
+    PROJECT_ROOT = PROJECT_ROOT.parent
+DATA_DIR = PROJECT_ROOT / "data"
 
 # Representative values
 work_years = [2022, 2023]
@@ -59,5 +64,7 @@ print(results_df.head())
 print("Total successful predictions:", len(results_df))
 
 # Save results
-results_df.to_csv("prediction_results.csv", index=False)
-print("Saved as prediction_results.csv")
+DATA_DIR.mkdir(exist_ok=True)
+output_path = DATA_DIR / "prediction_results.csv"
+results_df.to_csv(output_path, index=False)
+print(f"Saved as {output_path}")

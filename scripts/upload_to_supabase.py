@@ -1,4 +1,5 @@
 import pandas as pd
+from pathlib import Path
 from supabase import create_client, Client
 
 # Supabase credentials
@@ -7,8 +8,14 @@ SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
+PROJECT_ROOT = Path(__file__).resolve().parent
+if not (PROJECT_ROOT / "requirements.txt").exists():
+    PROJECT_ROOT = PROJECT_ROOT.parent
+DATA_DIR = PROJECT_ROOT / "data"
+ASSETS_DIR = PROJECT_ROOT / "assets"
+
 # Load predictions CSV
-df = pd.read_csv(r"C:\Users\user\Downloads\se factory Project\prediction_results.csv")
+df = pd.read_csv(DATA_DIR / "prediction_results.csv")
 
 # Convert dataframe to list of dictionaries
 prediction_records = df.to_dict(orient="records")
@@ -25,16 +32,16 @@ print(response)
 ##########################################################################
 
 # Read saved summary and LLM analysis
-with open(r"C:\Users\user\Downloads\se factory Project\summary_text.txt", "r", encoding="utf-8") as f:
+with open(DATA_DIR / "summary_text.txt", "r", encoding="utf-8") as f:
     summary_text = f.read()
 
-with open(r"C:\Users\user\Downloads\se factory Project\llm_analysis.txt", "r", encoding="utf-8") as f:
+with open(DATA_DIR / "llm_analysis.txt", "r", encoding="utf-8") as f:
     llm_analysis = f.read()
 
 analysis_record = {
     "summary_text": summary_text,
     "llm_analysis": llm_analysis,
-    "chart_filename": r"C:\Users\user\Downloads\se factory Project\salary_by_experience.png"
+    "chart_filename": str(ASSETS_DIR / "salary_by_experience.png")
 }
 
 response = supabase.table("analysis_reports").insert(
