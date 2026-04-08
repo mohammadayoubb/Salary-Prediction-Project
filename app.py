@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 import requests
 from supabase import create_client
 
@@ -95,14 +94,7 @@ else:
     st.subheader("Average Predicted Salary by Experience Level")
     avg_salary_by_exp = df.groupby("experience_level")["predicted_salary_in_usd"].mean().sort_index()
 
-    fig, ax = plt.subplots(figsize=(8, 5))
-    avg_salary_by_exp.plot(kind="bar", ax=ax)
-    ax.set_title("Average Predicted Salary by Experience Level")
-    ax.set_xlabel("Experience Level")
-    ax.set_ylabel("Predicted Salary in USD")
-    ax.tick_params(axis="x", rotation=0)
-
-    st.pyplot(fig)
+    st.bar_chart(avg_salary_by_exp)
 
 # =========================
 # LLM analysis section
