@@ -6,8 +6,7 @@ import joblib
 app = FastAPI(title="Salary Prediction API")
 
 # Load trained model
-model = joblib.load("C:\\Users\\user\\Downloads\\salary_prediction_model.pkl")
-
+model = joblib.load("salary_prediction_model.pkl")
 # Allowed values for validation
 ALLOWED_EXPERIENCE_LEVELS = ["EN", "MI", "SE", "EX"]
 ALLOWED_EMPLOYMENT_TYPES = ["FT", "PT", "CT", "FL"]
