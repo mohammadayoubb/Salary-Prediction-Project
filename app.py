@@ -11,7 +11,7 @@ SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # FastAPI endpoint
-FASTAPI_URL = "https://salary-prediction-project-hru9.onrender.com"
+FASTAPI_URL = "https://salary-prediction-project-hru9.onrender.com/predict"
 
 st.set_page_config(page_title="Salary Prediction Dashboard", layout="wide")
 
