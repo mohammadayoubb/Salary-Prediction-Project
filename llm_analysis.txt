@@ -1,0 +1,34 @@
+experience_level
+EN    122064.814815
+EX    217513.890000
+MI    115196.296296
+SE    148997.522222
+Name: predicted_salary_in_usd, dtype: float64
+Chart saved as salary_by_experience.png
+
+Summary of prediction results:
+
+1. Average predicted salary by experience level:
+experience_level
+EN    122064.814815
+EX    217513.890000
+MI    115196.296296
+SE    148997.522222
+
+2. Average predicted salary by job title:
+job_title
+Machine Learning Engineer    170867.486111
+Data Scientist               142991.990000
+Data Engineer                138969.916389
+
+3. Average predicted salary by remote ratio:
+remote_ratio
+0      148122.250278
+50     148122.250278
+100    156584.891944
+
+4. Average predicted salary by company size:
+company_size
+L    162058.639167
+M    157028.947500
+S    133741.805833
