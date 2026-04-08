@@ -24,6 +24,16 @@ SUPABASE_KEY = get_supabase_setting(
 
 PREDICTION_TABLE = "salary_predictions"
 ANALYSIS_TABLE = "analysis_reports"
+FILTER_COLUMNS = [
+    ("work_year", "Work Year"),
+    ("experience_level", "Experience Level"),
+    ("employment_type", "Employment Type"),
+    ("job_title", "Job Title"),
+    ("employee_residence", "Employee Residence"),
+    ("remote_ratio", "Remote Ratio"),
+    ("company_location", "Company Location"),
+    ("company_size", "Company Size"),
+]
 
 
 def format_currency(value: float) -> str:
@@ -69,6 +79,25 @@ def build_grouped_salary_chart(df: pd.DataFrame, group_col: str):
     return chart_df if not chart_df.empty else None
 
 
+def apply_sidebar_filters(df: pd.DataFrame) -> pd.DataFrame:
+    filtered_df = df.copy()
+
+    for column_name, label in FILTER_COLUMNS:
+        if column_name not in df.columns:
+            continue
+
+        options = df[column_name].dropna().unique().tolist()
+        if not options:
+            continue
+
+        options = sorted(options)
+        selected_options = st.sidebar.multiselect(label, options, default=options)
+        if selected_options:
+            filtered_df = filtered_df[filtered_df[column_name].isin(selected_options)]
+
+    return filtered_df
+
+
 st.title("Salary Prediction Dashboard")
 st.caption(
     "Predictions, LLM analysis, and visualizations loaded from Supabase."
@@ -84,28 +113,7 @@ if predictions_df.empty:
     st.info("No prediction data is available in Supabase yet.")
 else:
     st.sidebar.header("Filters")
-
-    filtered_df = predictions_df.copy()
-
-    if "experience_level" in predictions_df.columns:
-        experience_options = sorted(predictions_df["experience_level"].dropna().unique().tolist())
-        selected_experience = st.sidebar.multiselect(
-            "Experience Level", experience_options, default=experience_options
-        )
-        if selected_experience:
-            filtered_df = filtered_df[filtered_df["experience_level"].isin(selected_experience)]
-
-    if "job_title" in predictions_df.columns:
-        job_options = sorted(predictions_df["job_title"].dropna().unique().tolist())
-        selected_jobs = st.sidebar.multiselect("Job Title", job_options, default=job_options)
-        if selected_jobs:
-            filtered_df = filtered_df[filtered_df["job_title"].isin(selected_jobs)]
-
-    if "company_size" in predictions_df.columns:
-        size_options = sorted(predictions_df["company_size"].dropna().unique().tolist())
-        selected_sizes = st.sidebar.multiselect("Company Size", size_options, default=size_options)
-        if selected_sizes:
-            filtered_df = filtered_df[filtered_df["company_size"].isin(selected_sizes)]
+    filtered_df = apply_sidebar_filters(predictions_df)
 
     st.subheader("Prediction Overview")
 
