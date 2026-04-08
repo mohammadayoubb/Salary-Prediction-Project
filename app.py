@@ -11,7 +11,7 @@ SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # FastAPI endpoint
-FASTAPI_URL = "http://127.0.0.1:8000/predict"
+FASTAPI_URL = "https://salary-prediction-project-hru9.onrender.com"
 
 st.set_page_config(page_title="Salary Prediction Dashboard", layout="wide")
 
@@ -19,7 +19,7 @@ st.title("Salary Prediction Dashboard")
 st.write("This dashboard displays salary predictions and AI-generated analysis based on job-related input scenarios.")
 
 
-job_titles_df = pd.read_csv(r"C:\Users\user\Downloads\se factory Project\cleaned_ds_salaries.csv")
+job_titles_df = pd.read_csv("cleaned_ds_salaries.csv")
 job_title_options = sorted(job_titles_df["job_title"].dropna().unique().tolist())
 
 # =========================
@@ -115,4 +115,7 @@ else:
     latest_report = analysis_data[0]
     st.write(latest_report["llm_analysis"])
 
-   
+
+#hayda il part optional lal summary
+   # with st.expander("Show Summary Text"):
+    #    st.write(latest_report["summary_text"])
