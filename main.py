@@ -44,7 +44,7 @@ def predict_salary(
     if company_size not in ALLOWED_COMPANY_SIZES:
         return {"error": f"company_size must be one of {ALLOWED_COMPANY_SIZES}"}
 
-    # Prepare input as dataframe
+    
     input_data = pd.DataFrame([{
         "work_year": work_year,
         "experience_level": experience_level,
