@@ -8,7 +8,7 @@ app = FastAPI(title="Salary Prediction API")
 
 # Load trained model
 BASE_DIR = Path(__file__).resolve().parent
-MODEL_PATH = BASE_DIR / "models" / "salary_prediction_model.pkl"
+MODEL_PATH = BASE_DIR / "models" / "improved_salary_prediction_model.pkl"
 model = joblib.load(MODEL_PATH)
 # Allowed values for validation
 ALLOWED_EXPERIENCE_LEVELS = ["EN", "MI", "SE", "EX"]
