@@ -25,9 +25,9 @@ st.write("This dashboard displays salary predictions and AI-generated analysis b
 job_titles_df = pd.read_csv(DATA_DIR / "cleaned_ds_salaries.csv")
 job_title_options = sorted(job_titles_df["job_title"].dropna().unique().tolist())
 
-# =========================
+
 # Interactive prediction form
-# =========================
+
 st.subheader("Try a New Salary Prediction")
 
 with st.form("prediction_form"):
@@ -67,18 +67,18 @@ if submitted:
     except requests.exceptions.RequestException as e:
         st.error(f"Error calling prediction API: {e}")
 
-# =========================
-# Fetch prediction data from Supabase
-# =========================
+
+# aam njeeb il data min supabase
+
 pred_response = supabase.table("salary_predictions").select("*").execute()
 pred_data = pred_response.data
 
 analysis_response = supabase.table("analysis_reports").select("*").order("created_at", desc=True).limit(1).execute()
 analysis_data = analysis_response.data
 
-# =========================
+
 # Predictions section
-# =========================
+
 if not pred_data:
     st.warning("No prediction data found in Supabase.")
 else:
@@ -107,9 +107,9 @@ else:
 
     st.pyplot(fig)
 
-# =========================
-# LLM analysis section
-# =========================
+
+# LLM 
+
 st.subheader("LLM Analysis")
 
 if not analysis_data:

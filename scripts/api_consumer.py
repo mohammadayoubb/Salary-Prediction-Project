@@ -9,7 +9,7 @@ if not (PROJECT_ROOT / "requirements.txt").exists():
     PROJECT_ROOT = PROJECT_ROOT.parent
 DATA_DIR = PROJECT_ROOT / "data"
 
-# Representative values
+# Representative values il x yale ha yjuno il inputs
 work_years = [2022, 2023]
 experience_levels = ["EN", "MI", "SE", "EX"]
 employment_types = ["FT"]

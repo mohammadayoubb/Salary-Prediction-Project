@@ -33,7 +33,7 @@ plt.show()
 
 print(f"Chart saved as {chart_path}")
 
-# Summary tables
+# Summary lal tables
 avg_salary_by_title = df.groupby("job_title")["predicted_salary_in_usd"].mean().sort_values(ascending=False)
 avg_salary_by_remote = df.groupby("remote_ratio")["predicted_salary_in_usd"].mean().sort_index()
 avg_salary_by_company_size = df.groupby("company_size")["predicted_salary_in_usd"].mean().sort_index()
