@@ -2,6 +2,14 @@ from fastapi import FastAPI, Query
 import pandas as pd
 import joblib
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+FASTAPI_URL = os.getenv("FASTAPI_URL")
 
 # Create FastAPI app
 app = FastAPI(title="Salary Prediction API")

@@ -12,3 +12,6 @@ env/
 Thumbs.db
 .vscode/
 .idea/
+
+README
+SCRIPT_OVERVIEW.md

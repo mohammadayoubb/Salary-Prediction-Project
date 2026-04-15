@@ -1,10 +1,13 @@
 import pandas as pd
 from pathlib import Path
 from supabase import create_client, Client
-
+import os
+from dotenv import load_dotenv
 # Supabase credentials
-SUPABASE_URL = "https://fezfntwxebavbchpfhqm.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlemZudHd4ZWJhdmJjaHBmaHFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NDYwNTMsImV4cCI6MjA5MTIyMjA1M30.Kz9oVDlfkdrqrryUpeObAwzK4r5W4GNyINOSkeMUeU4"
+load_dotenv()
+
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
